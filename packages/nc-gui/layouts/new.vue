@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { useTitle } from '@vueuse/core'
+import defaultLogo from '~/assets/img/brand/nocodb-full.png'
 
 const route = useRoute()
+const runtimeConfig = useRuntimeConfig()
+const primaryLogo = runtimeConfig.public.customLogo
 
 const { te, t } = useI18n()
 
@@ -50,7 +53,7 @@ export default {
       <div class="flex w-full h-full items-center nc-header-content">
         <div class="flex-1 min-w-0 w-50">
           <nuxt-link :to="isPublic ? '' : '/'">
-            <img src="~/assets/img/brand/nocodb-full.png" class="h-11" />
+            <img :src="primaryLogo || defaultLogo" class="h-11" />
           </nuxt-link>
         </div>
 

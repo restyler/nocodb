@@ -1,9 +1,14 @@
 <script lang="ts" setup>
+import defaultLogo from '~/assets/img/brand/nocodb-full.png'
+import defaultSquareLogo from '~/assets/img/icons/256x256.png'
 const { signOut, signedIn, isLoading, user, currentVersion, appInfo } = useGlobal()
 
 useSidebar('nc-left-sidebar', { hasSidebar: false })
 
 const route = useRoute()
+const runtimeConfig = useRuntimeConfig()
+const primaryLogo = runtimeConfig.public.customLogo
+const squareLogo = runtimeConfig.public.customSquareLogo
 
 const { isFeatureEnabled } = useBetaFeatureToggle()
 
@@ -51,8 +56,18 @@ hooks.hook('page:finish', () => {
               {{ currentVersion }}
             </template>
             <div class="flex items-center gap-2">
-              <img v-if="!isDashboard" width="120" alt="NocoDB" src="~/assets/img/brand/nocodb-full.png" />
-              <img v-else width="25" alt="NocoDB" src="~/assets/img/icons/256x256.png" />
+              <img
+                v-if="!isDashboard"
+                width="120"
+                alt="NocoDB"
+                :src="primaryLogo || defaultLogo"
+              />
+              <img
+                v-else
+                width="25"
+                alt="NocoDB"
+                :src="squareLogo || defaultSquareLogo"
+              />
             </div>
           </a-tooltip>
         </div>

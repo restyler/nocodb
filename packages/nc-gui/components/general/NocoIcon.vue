@@ -4,12 +4,17 @@ interface Props {
   animate?: boolean
 }
 
+import defaultSquare from '~/assets/img/icons/256x256.png'
+
 const props = withDefaults(defineProps<Props>(), {
   size: 90,
   animate: false,
 })
 
 const { size, animate } = toRefs(props)
+
+const runtimeConfig = useRuntimeConfig()
+const squareLogo = runtimeConfig.public.customSquareLogo
 
 const ping = autoResetRef(false, 1000)
 
@@ -25,8 +30,23 @@ const onClick = useThrottleFn(() => {
     @click="onClick"
   >
     <div class="relative">
-      <img class="hidden dark:block" :width="size" :height="size" alt="NocoDB" src="~/assets/img/icons/256x256-trans.png" />
-      <img class="dark:hidden" :width="size" :height="size" alt="NocoDB" src="~/assets/img/icons/256x256.png" />
+      <img
+        v-if="!squareLogo"
+        class="hidden dark:block"
+        :width="size"
+        :height="size"
+        alt="NocoDB"
+        src="~/assets/img/icons/256x256-trans.png"
+      />
+      <img
+        v-if="!squareLogo"
+        class="dark:hidden"
+        :width="size"
+        :height="size"
+        alt="NocoDB"
+        src="~/assets/img/icons/256x256.png"
+      />
+      <img v-else :width="size" :height="size" :src="squareLogo || defaultSquare" alt="NocoDB" />
 
       <TransitionGroup name="layout" :duration="500">
         <template v-if="animate || ping">
