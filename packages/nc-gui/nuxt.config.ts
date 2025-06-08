@@ -9,6 +9,13 @@ import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 
 import PurgeIcons from 'vite-plugin-purge-icons'
 
+const BRAND_SITE_NAME = process.env.NC_BRAND_SITE_NAME || 'NocoDB'
+const BRAND_TITLE = process.env.NC_BRAND_TITLE || BRAND_SITE_NAME
+const BRAND_DESCRIPTION =
+  process.env.NC_BRAND_DESCRIPTION ||
+  'NocoDB provides an intuitive spreadsheet interface for creating online databases, either from scratch or by connecting to any Postgres/MySQL. Access your data through interactive UIs or via API and SQL. Get started for free.'
+const BRAND_URL = process.env.NC_BRAND_URL || 'https://nocodb.com'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   future: {
@@ -77,24 +84,22 @@ export default defineNuxtConfig({
           content: process.env.npm_package_description || '',
         },
         // Open Graph
-        { hid: 'og:site_name', property: 'og:site_name', content: 'NocoDB' },
+        { hid: 'og:site_name', property: 'og:site_name', content: BRAND_SITE_NAME },
         { hid: 'og:type', property: 'og:type', content: 'website' },
-        { hid: 'og:title', property: 'og:title', content: 'NocoDB' },
+        { hid: 'og:title', property: 'og:title', content: BRAND_TITLE },
         {
           hid: 'og:description',
           property: 'og:description',
-          content:
-            'NocoDB provides an intuitive spreadsheet interface for creating online databases, either from scratch or by connecting to any Postgres/MySQL. Access your data through interactive UIs or via API and SQL. Get started for free.',
+          content: BRAND_DESCRIPTION,
         },
-        { hid: 'og:url', property: 'og:url', content: 'https://nocodb.com' },
+        { hid: 'og:url', property: 'og:url', content: BRAND_URL },
         // Twitter
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'twitter:title', name: 'twitter:title', content: 'NocoDB' },
+        { hid: 'twitter:title', name: 'twitter:title', content: BRAND_TITLE },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
-          content:
-            'NocoDB provides an intuitive spreadsheet interface for creating online databases, either from scratch or by connecting to any Postgres/MySQL. Access your data through interactive UIs or via API and SQL. Get started for free.',
+          content: BRAND_DESCRIPTION,
         },
         {
           hid: 'twitter:image',
@@ -124,6 +129,10 @@ export default defineNuxtConfig({
       ncBackendUrl: '',
       env: 'production',
       maxPageDesignerTableRows: 100,
+      ncBrandSiteName: BRAND_SITE_NAME,
+      ncBrandTitle: BRAND_TITLE,
+      ncBrandDescription: BRAND_DESCRIPTION,
+      ncBrandUrl: BRAND_URL,
     },
   },
 

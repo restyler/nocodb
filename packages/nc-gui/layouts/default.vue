@@ -11,7 +11,8 @@ const refreshSidebar = ref(false)
 
 const sidebarReady = ref(false)
 
-useTitle(route.meta?.title && te(route.meta.title) ? `${t(route.meta.title)}` : 'NocoDB')
+const brandTitle = useRuntimeConfig().public.ncBrandTitle || 'NocoDB'
+useTitle(route.meta?.title && te(route.meta.title) ? `${t(route.meta.title)}` : brandTitle)
 
 watch(hasSidebar, (val) => {
   if (!val) {

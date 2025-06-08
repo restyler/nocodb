@@ -17,7 +17,8 @@ const email = computed(() => user.value?.email ?? '---')
 
 const refreshSidebar = ref(false)
 
-useTitle(route.meta?.title && te(route.meta.title) ? `${t(route.meta.title)}` : 'NocoDB')
+const brandTitle = useRuntimeConfig().public.ncBrandTitle || 'NocoDB'
+useTitle(route.meta?.title && te(route.meta.title) ? `${t(route.meta.title)}` : brandTitle)
 
 const isPublic = computed(() => route.meta?.public)
 

@@ -1,0 +1,32 @@
+[
+  {
+    "filename": "main-logo.png",
+    "target": "packages/nc-gui/assets/img/brand/nocodb-full.png",
+    "resolution": "600x171",
+    "description": "Main large logo shown in the header"
+  },
+  {
+    "filename": "compact-logo.png",
+    "target": "packages/nc-gui/assets/img/brand/nocodb.png",
+    "resolution": "629x99",
+    "description": "Compact logo used on share pages"
+  },
+  {
+    "filename": "logo-icon.svg",
+    "target": "packages/nc-gui/assets/img/brand/nocodb-logo.svg",
+    "resolution": "24x24",
+    "description": "Small logo icon used throughout the UI"
+  },
+  {
+    "filename": "favicon.ico",
+    "target": "packages/nc-gui/public/favicon.ico",
+    "resolution": "256x256",
+    "description": "Browser tab icon"
+  },
+  {
+    "filename": "link-preview.webp",
+    "target": "packages/nc-gui/public/link-preview.webp",
+    "resolution": "800x450",
+    "description": "Open graph / Twitter preview image"
+  }
+]
