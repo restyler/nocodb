@@ -3,10 +3,11 @@
 # highlevel steps involved
 # 1. Stop and remove existing container and image
 # 2. Install dependencies
-# 3. Build nc-gui
-#   3a. static build of nc-gui
-#   3b. copy nc-gui build to nocodb dir
-# 4. Build nocodb
+# 3. Copy optional branding assets
+# 4. Build nc-gui
+#   4a. static build of nc-gui
+#   4b. copy nc-gui build to nocodb dir
+# 5. Build nocodb
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 LOG_FILE=${SCRIPT_DIR}/build-local-docker-image.log
@@ -16,6 +17,13 @@ function stop_and_remove_container() {
     # Stop and remove the existing container
     docker stop nocodb-local >/dev/null 2>&1
     docker rm nocodb-local >/dev/null 2>&1
+}
+
+function copy_assets() {
+    # Copy custom branding assets if present
+    if [ -d "${SCRIPT_DIR}/assets" ]; then
+        rsync -rvzh ${SCRIPT_DIR}/assets/ ${SCRIPT_DIR}/packages/nc-gui/ || ERROR="copy_assets failed"
+    fi
 }
 
 function remove_image() {
@@ -71,6 +79,9 @@ remove_image
 
 echo "Info: Installing dependencies" | tee -a ${LOG_FILE}
 install_dependencies 1>> ${LOG_FILE} 2>> ${LOG_FILE}
+
+echo "Info: Copying branding assets" | tee -a ${LOG_FILE}
+copy_assets 1>> ${LOG_FILE} 2>> ${LOG_FILE}
 
 echo "Info: Building nc-gui" | tee -a ${LOG_FILE}
 build_gui 1>> ${LOG_FILE} 2>> ${LOG_FILE}

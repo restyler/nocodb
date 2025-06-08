@@ -49,7 +49,7 @@ export default defineNuxtConfig({
         {
           rel: 'icon',
           type: 'image/x-icon',
-          href: process.env.NC_UI_FAVICON || './favicon.ico',
+          href: './favicon.ico',
         },
 
         ...(process.env.NC_CDN_URL
@@ -77,9 +77,17 @@ export default defineNuxtConfig({
           content: process.env.npm_package_description || '',
         },
         // Open Graph
-        { hid: 'og:site_name', property: 'og:site_name', content: 'NocoDB' },
+        {
+          hid: 'og:site_name',
+          property: 'og:site_name',
+          content: process.env.NC_UI_OG_SITE_NAME || 'NocoDB',
+        },
         { hid: 'og:type', property: 'og:type', content: 'website' },
-        { hid: 'og:title', property: 'og:title', content: process.env.NC_UI_OG_TITLE || 'NocoDB' },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: process.env.NC_UI_OG_TITLE || 'NocoDB',
+        },
         {
           hid: 'og:description',
           property: 'og:description',
@@ -90,7 +98,11 @@ export default defineNuxtConfig({
         { hid: 'og:url', property: 'og:url', content: 'https://nocodb.com' },
         // Twitter
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'twitter:title', name: 'twitter:title', content: process.env.NC_UI_OG_TITLE || 'NocoDB' },
+        {
+          hid: 'twitter:title',
+          name: 'twitter:title',
+          content: process.env.NC_UI_OG_TITLE || 'NocoDB',
+        },
         {
           hid: 'twitter:description',
           name: 'twitter:description',
@@ -101,12 +113,12 @@ export default defineNuxtConfig({
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: process.env.NC_UI_OG_IMAGE || './link-preview.webp',
+          content: './link-preview.webp',
         },
         {
           hid: 'og:image',
           property: 'og:image',
-          content: process.env.NC_UI_OG_IMAGE || './link-preview.webp',
+          content: './link-preview.webp',
         },
       ],
     },
@@ -126,12 +138,6 @@ export default defineNuxtConfig({
       ncBackendUrl: '',
       env: 'production',
       maxPageDesignerTableRows: 100,
-      customLogo: process.env.NC_UI_LOGO_PRIMARY,
-      customSquareLogo: process.env.NC_UI_LOGO_SQUARE,
-      customFavicon: process.env.NC_UI_FAVICON,
-      customOgImage: process.env.NC_UI_OG_IMAGE,
-      customOgTitle: process.env.NC_UI_OG_TITLE,
-      customOgDescription: process.env.NC_UI_OG_DESCRIPTION,
     },
   },
 
