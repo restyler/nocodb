@@ -38,10 +38,11 @@ onMounted(() => {
   }
 
   // handle meta title
+  const brandTitle = useRuntimeConfig().public.ncBrandTitle || 'NocoDB'
   if (sharedView.value?.title) {
     document.title = `${sharedView.value.title}`
   } else {
-    document.title = 'NocoDB'
+    document.title = brandTitle
   }
 })
 </script>
@@ -68,7 +69,7 @@ export default {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img width="96" alt="NocoDB" src="~/assets/img/brand/nocodb.png" class="flex-none min-w-[96px]" />
+              <img width="96" :alt="brandTitle" src="~/assets/img/brand/nocodb.png" class="flex-none min-w-[96px]" />
             </a>
 
             <div class="flex items-center gap-2 text-gray-900 text-sm truncate">

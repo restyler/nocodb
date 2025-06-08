@@ -29,6 +29,22 @@ function install_dependencies() {
     pnpm bootstrap || ERROR="install_dependencies failed"
 }
 
+function apply_branding() {
+    local MAP_FILE="${SCRIPT_DIR}/brand-assets/assets.json"
+    if [ -f "$MAP_FILE" ]; then
+        jq -c '.[]' "$MAP_FILE" | while read -r item; do
+            local filename=$(echo "$item" | jq -r '.filename')
+            local target=$(echo "$item" | jq -r '.target')
+            local src="${SCRIPT_DIR}/brand-assets/assets/${filename}"
+            local dest="${SCRIPT_DIR}/${target}"
+            if [ -f "$src" ]; then
+                echo "Info: applying branding $src -> $dest" | tee -a ${LOG_FILE}
+                cp "$src" "$dest" || ERROR="apply_branding failed"
+            fi
+        done
+    fi
+}
+
 function build_gui() {
     # build nc-gui
     export NODE_OPTIONS="--max_old_space_size=16384"
@@ -71,6 +87,9 @@ remove_image
 
 echo "Info: Installing dependencies" | tee -a ${LOG_FILE}
 install_dependencies 1>> ${LOG_FILE} 2>> ${LOG_FILE}
+
+echo "Info: Applying custom brand assets" | tee -a ${LOG_FILE}
+apply_branding 1>> ${LOG_FILE} 2>> ${LOG_FILE}
 
 echo "Info: Building nc-gui" | tee -a ${LOG_FILE}
 build_gui 1>> ${LOG_FILE} 2>> ${LOG_FILE}
